@@ -1,6 +1,5 @@
 <?php
 include "database.php";
-include "form.php";
 include "nav.php";
 ?>
 
@@ -8,7 +7,7 @@ include "nav.php";
 
     <div class="row m-5">
         <div class="d-flex align-items-center justify-content-between pb-5">
-            <h1>Hello USER!</h1>
+            <h1>Hello <?= $usrname ?></h1>
 
         </div>
         <div class="container-fluid">
@@ -57,13 +56,16 @@ include "nav.php";
                 </div>
             </div>
         </div>
+        <?php
+        $iduser = $_SESSION['id'];
+        ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-md-2 bg-warning mt-5 d-flex flex-column justify-content-start">
                     <h3 class="text-light py-3">OVERVIEW</h3>
                     <h5>You've Got</h5>
                     <?php
-                    $countquery = "SELECT COUNT(*) as count FROM contact";
+                    $countquery = "SELECT COUNT(*) as count FROM contact WHERE iduser =$iduser";
                     $result = mysqli_query($conn, $countquery);
 
                     $row = mysqli_fetch_assoc($result);
@@ -71,7 +73,7 @@ include "nav.php";
                     echo "<h2>$count</h2>";
                     ?>
 
-                    <h5 class= "pb-5">Contact(s)</h5>
+                    <h5 class="pb-5">Contact(s)</h5>
                 </div>
                 <div class="col-md-10 col-sm-12 mt-5">
                     <h2 class="mb-3">YOUR CONTACTS LIST</h2>
@@ -104,7 +106,8 @@ include "nav.php";
 
 
                         // Read Contacts
-                        $sqlsel = "SELECT * FROM contact";
+                        
+                        $sqlsel = "SELECT * FROM contact WHERE iduser =$iduser";
                         $result = mysqli_query($conn, $sqlsel);
 
                         if (mysqli_num_rows($result) > 0) {
@@ -167,7 +170,6 @@ include "nav.php";
 </table>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>
