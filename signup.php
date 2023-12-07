@@ -21,10 +21,20 @@ if (isset($_POST["signin"])) {
         } catch (mysqli_sql_exception) {
             echo "That username is taken";
         }
-        $_SESSION['username'] = $row['username'];
-        $_SESSION['id'] = $row['id'];
-        $_SESSION["username"] = $username;
-        header("Location: profile.php");
+
+        $sqlinser = "SELECT * FROM user WHERE username = '$username' AND password ='$password'";
+        $result = mysqli_query($conn, $sqlinser);
+
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['id'] = $row['id'];
+                $_SESSION["username"] = $username;
+            }
+            header("Location: profile.php");
+        }
+
         exit();
     }
 }
