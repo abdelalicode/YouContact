@@ -11,23 +11,20 @@ if (isset($_POST["signin"])) {
 
 
 
-    if(empty($username) || empty($password) || empty($email))
-    {
-        
+    if (empty($username) || empty($password) || empty($email)) {
+
         header("Location: index.php");
-    }
-    else {
+    } else {
         $sqllog = "INSERT INTO user(username, password, email) VALUES ('$username', '$password', '$email' ) ";
-        try{
+        try {
             mysqli_query($conn, $sqllog);
+        } catch (mysqli_sql_exception) {
+            echo "That username is taken";
         }
-        catch(mysqli_sql_exception) {
-            echo"That username is taken";
-        }
-        header("Location: home.php");
-        $_SESSION["username"] = $username ;
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['id'] = $row['id'];
+        $_SESSION["username"] = $username;
+        header("Location: profile.php");
         exit();
     }
-
-    
 }

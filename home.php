@@ -1,6 +1,11 @@
 <?php
 include "database.php";
 include "nav.php";
+
+if (empty($_SESSION["username"])) {
+    header("location:index.php");
+}
+
 ?>
 
 <div class="container">

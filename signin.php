@@ -12,7 +12,6 @@ if (isset($_POST["signin"])) {
         exit();
        
     } else {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = "SELECT * FROM user WHERE username = '$username' AND password ='$password'";
         $result = mysqli_query($conn, $sql);
 
